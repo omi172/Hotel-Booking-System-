@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Hotels - Hotel Booking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            padding: 15px 30px;
+        }
+
+        .navbar-custom .navbar-brand { color: white; font-size: 22px; font-weight: 700; }
+        .navbar-custom .nav-link { color: rgba(255,255,255,0.85); font-weight: 500; margin: 0 8px; }
+        .navbar-custom .nav-link:hover, .navbar-custom .nav-link.active { color: #fff; }
+
+        .page-header { padding: 30px 0 20px; }
+        .page-header h2 { font-weight: 700; color: #1a237e; border-left: 4px solid #1a237e; padding-left: 15px; }
+
+        .search-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+        }
+
+        .form-label { font-weight: 600; color: #444; }
+        .form-control { border-radius: 8px; padding: 12px 15px; border: 2px solid #e0e0e0; }
+        .form-control:focus { border-color: #1a237e; box-shadow: none; }
+
+        .btn-search {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            border: none; padding: 12px 40px; border-radius: 8px;
+            font-weight: 600; color: white; font-size: 16px;
+        }
+
+        .btn-search:hover { opacity: 0.9; color: white; }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 15px;
+            border-left: 4px solid #2e7d32;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover { transform: translateY(-2px); }
+
+        .result-card h5 { color: #1a237e; font-weight: 600; }
+        .result-card .price { font-size: 20px; font-weight: 700; color: #2e7d32; }
+
+        .btn-book {
+            background: #2e7d32;
+            border: none; padding: 8px 20px; border-radius: 6px;
+            font-weight: 600; color: white;
+        }
+
+        .btn-book:hover { background: #1b5e20; color: white; }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1565c0;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+
+        .no-results i { font-size: 48px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-hotel"></i> Hotel Booking System</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/hotels}">Hotels</a></li>
+                <li class="nav-item"><a class="nav-link active" th:href="@{/search}">Search</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/bookings}">Bookings</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/payments}">Payments</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2><i class="fas fa-search"></i> Search Module</h2>
+        <p class="text-muted">Search for hotels based on location and view rooms available for a selected date range.</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-card">
+        <form th:action="@{/api/search}" method="get">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label"><i class="fas fa-map-marker-alt"></i> Location / City</label>
+                    <input type="text" name="location" class="form-control" placeholder="Enter city (e.g., Mumbai, Goa)" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-calendar-plus"></i> Check-in Date</label>
+                    <input type="date" name="checkIn" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-calendar-minus"></i> Check-out Date</label>
+                    <input type="date" name="checkOut" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-search w-100">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <strong>Smart Filtering:</strong> Rooms that are already booked during the specified period are automatically filtered out. Only available rooms are shown.
+    </div>
+
+    <!-- Search Results -->
+    <div th:if="${searchResults != null and !searchResults.isEmpty()}">
+        <h4 class="mb-3" style="color: #1a237e; font-weight: 600;">
+            <i class="fas fa-check-circle text-success"></i> Available Hotels & Rooms
+        </h4>
+
+        <div th:each="result : ${searchResults}" class="result-card">
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <h5 th:text="${result.hotelName}">Hotel Name</h5>
+                    <p class="text-muted mb-1">
+                        <i class="fas fa-map-marker-alt"></i> <span th:text="${result.city}">City</span> |
+                        <span th:text="${result.rating} + ' ⭐'">4 ⭐</span>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p class="mb-0 text-muted">Room Type</p>
+                    <strong th:text="${result.roomType}">Deluxe</strong>
+                </div>
+                <div class="col-md-2">
+                    <p class="mb-0 text-muted">Per Night</p>
+                    <span class="price" th:text="'₹' + ${result.pricePerNight}">₹4,500</span>
+                </div>
+                <div class="col-md-2 text-end">
+                    <a th:href="@{/bookings/new(roomId=${result.roomId}, hotelName=${result.hotelName})}" class="btn btn-book">
+                        <i class="fas fa-bookmark"></i> Book
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- No Results -->
+    <div th:if="${searchResults != null and searchResults.isEmpty()}" class="no-results">
+        <i class="fas fa-bed"></i>
+        <h4>No rooms available</h4>
+        <p>Try different dates or another location.</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

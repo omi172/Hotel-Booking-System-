@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script th:fragment="script">
+    // Check login status and update navbar
+    (function() {
+        const token = localStorage.getItem('token');
+        const loginNav = document.getElementById('loginNav');
+        const logoutNav = document.getElementById('logoutNav');
+
+        if (token) {
+            if (loginNav) loginNav.style.display = 'none';
+            if (logoutNav) logoutNav.style.display = 'block';
+        } else {
+            if (loginNav) loginNav.style.display = 'block';
+            if (logoutNav) logoutNav.style.display = 'none';
+        }
+    })();
+
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('firstName');
+        localStorage.removeItem('role');
+        window.location.href = '/login';
+    }
+</script>
+</html>
