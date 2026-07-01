@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking System - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-hero {
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .btn-hero-primary {
+            background: white;
+            color: #1a237e;
+            border: none;
+        }
+
+        .btn-hero-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .features-section {
+            padding: 80px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 42px;
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .navbar-custom .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            margin: 0 8px;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .footer {
+            background: #1a237e;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-hotel"></i> Hotel Booking System
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/search}">Search Hotels</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/register}">Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1><i class="fas fa-hotel"></i> Hotel Booking System</h1>
+        <p>A Spring Boot web application that allows users to search hotels, view available rooms, and make bookings — similar to Booking.com & OYO.</p>
+        <a th:href="@{/search}" class="btn btn-hero btn-hero-primary">
+            <i class="fas fa-search"></i> Search Hotels
+        </a>
+        <a th:href="@{/register}" class="btn btn-hero btn-hero-outline">
+            <i class="fas fa-user-plus"></i> Get Started
+        </a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="text-center mb-5" style="font-weight: 700; color: #1a237e;">System Modules</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>User Module</h4>
+                    <p>Secure registration & login with JWT authentication, password hashing, and role-based access control.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-building"></i>
+                    <h4>Hotel Module</h4>
+                    <p>Admins can create, update, view, and delete hotel records. Users can browse hotel listings.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-search-location"></i>
+                    <h4>Search Module</h4>
+                    <p>Search hotels by location and date range. Automatically filters out already booked rooms.</p>
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-2">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Booking Module</h4>
+                    <p>Book rooms with date conflict detection, view booking history, and cancel reservations.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h4>Payment Module</h4>
+                    <p>Process payments with booking ID, amount tracking, and status management (SUCCESS/FAILED).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2026 Hotel Booking System | Built with Spring Boot &amp; Thymeleaf</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

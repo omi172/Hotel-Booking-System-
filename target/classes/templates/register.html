@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Hotel Booking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-card h2 {
+            color: #1a237e;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .register-card .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #1a237e;
+            box-shadow: none;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-register:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #1a237e;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .alert {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <h2><i class="fas fa-user-plus"></i> Register</h2>
+    <p class="subtitle">Create your Hotel Booking System account</p>
+
+    <!-- Success/Error Messages -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <form th:action="@{/register}" method="post" th:object="${user}">
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" th:field="*{name}" placeholder="Enter your full name" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" th:field="*{email}" placeholder="Enter your email" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" th:field="*{password}" placeholder="Create a strong password" required />
+            <small class="text-muted">Password will be stored securely with hashing</small>
+            <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm your password" required />
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Role</label>
+            <select class="form-select" th:field="*{role}">
+                <option value="USER">Regular User</option>
+                <option value="ADMIN">Administrator</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-register">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
+    </form>
+    <div class="login-link">
+        <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
