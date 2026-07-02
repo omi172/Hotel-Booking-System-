@@ -737,9 +737,19 @@ git clone https://github.com/yourusername/hotel-booking-system.git
 cd hotel-booking-system
 
 # Configure MongoDB in application.properties
+spring.application.name=HotelBookingSystem
+server.port=8080
 spring.data.mongodb.uri=mongodb://localhost:27017/hotel_booking_db
-jwt.secret=YourSuperSecretKeyAtLeast32Characters
-jwt.expiration=86400000
+
+jwt.secret=SG90ZWxCb29raW5nU3lzdGVtU2VjcmV0S2V5MjAyNlNwcmluZ0Jvb3RNb25nb0RC
+jwt.expiration=8640000
+
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=HTML
+spring.thymeleaf.encoding=UTF-8
+spring.thymeleaf.cache=false
+
 
 # Run the application
 mvn spring-boot:run
