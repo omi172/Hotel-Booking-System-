@@ -4,6 +4,7 @@ The Hotel Booking System is a full-stack web application built using Spring Boot
 
 This project replicates the core functionality of real-world hotel booking platforms like Booking.com, OYO, and MakeMyTrip at a smaller scale, designed for learning and portfolio demonstration.
 
+
 #2. Problem Statement
 In the hospitality industry, there is a need for a centralized platform where:
 
